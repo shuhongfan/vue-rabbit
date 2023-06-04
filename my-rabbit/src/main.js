@@ -1,4 +1,5 @@
 import './assets/main.css'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -15,7 +16,12 @@ import {componentPlugin} from "@/components"
 
 const app = createApp(App)
 
+// 注册持久化插件
+const pinia=createPinia()
+pinia.use(piniaPluginPersistedstate)
 app.use(createPinia())
+app.use(pinia)
+
 app.use(router)
 // 引入懒加载指令插件并且注册
 app.use(lazyPlugin)

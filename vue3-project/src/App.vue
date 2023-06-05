@@ -1,8 +1,8 @@
 <script setup>
 
-import RoomPage from "@/room-page.vue";
+import Sku from "@/Sku/Sku.vue";
 </script>
 
 <template>
-  <RoomPage/>
+  <Sku/>
 </template>

@@ -1,7 +1,8 @@
 import axios from "axios";
 import { ElMessage } from 'element-plus'
 import 'element-plus/theme-chalk/el-message.css'
-import {useUserStore} from "@/stores/user";
+import {useUserStore} from "@/stores/userStore";
+import router from "@/router";
 
 // 创建axios实例
 const httpInstance = axios.create({
@@ -26,11 +27,21 @@ httpInstance.interceptors.request.use(config => {
 
 // axios响应式拦截器
 httpInstance.interceptors.response.use(res => res.data, e => {
+    const userStore = useUserStore();
+    // 统一错误提示
     ElMessage({
         type:'warning',
         message:e.response.data.message
     })
-    return Promise.reject(e)
+
+    // 401 token失效处理
+    if (e.response.state === 401) {
+        // 1.清除本地用户数据
+        userStore.clearUserInfo()
+        // 2.跳转到登录页
+        router.push('/login')
+    }
+    return Promise.reject(e);
 })
 
 

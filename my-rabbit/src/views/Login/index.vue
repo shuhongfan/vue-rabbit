@@ -6,7 +6,7 @@ import 'element-plus/theme-chalk/el-message.css'
 import {ref} from "vue";
 import {loginAPI} from "@/apis/user";
 import router from "@/router";
-import {useUserStore} from "@/stores/user";
+import {useUserStore} from "@/stores/userStore";
 
 const userStore=useUserStore()
 
